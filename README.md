@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# CNN Fear & Greed Index Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive dashboard for the CNN Fear & Greed Index, featuring a hybrid data strategy (Local JSON + Daily API Header), compact header layout, and 7 sub-indicators.
 
-Currently, two official plugins are available:
+🚀 **Live Demo**: [https://tomasisz.github.io/fear-greed-chart/](https://tomasisz.github.io/fear-greed-chart/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Dashboard Preview](https://github.com/tomasisz/fear-greed-chart/blob/main/public/preview.png?raw=true)
+_(Note: You might want to upload a screenshot to your repo later for this image to show up)_
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Hybrid Data Loading**: Instantly loads historical data from local JSON (2021-Present) and merges with daily updates from CNN API.
+- **Top Header Info**: Compact, single-line display for the main Fear & Greed Score and "Next Update" countdown.
+- **7 Sub-Indicators**: Detailed charts for Market Momentum, Price Strength, VIX, etc., displayed in a responsive 2-column grid.
+- **Tech Stack**: React, TypeScript, Vite, Lightweight Charts (v5).
+- **i18n**: Supports English, Simplified Chinese, and Traditional Chinese.
 
-## Expanding the ESLint configuration
+## Local Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Install dependencies**:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Start dev server**:
+   ```bash
+   npm run dev
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Data Updates
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project uses a static JSON file for historical data to ensure fast loading and bypass CORS restrictions on GitHub Pages.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**To update data daily:**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Run the update script:
+
+   ```bash
+   npm run update-data
+   ```
+
+   _This fetches the latest data from CNN (proxied via Node.js script) and updates `src/data/fear_and_greed_historical.json`._
+
+2. Commit and push:
+   ```bash
+   git add .
+   git commit -m "chore: daily data update"
+   git push
+   ```
+   _The GitHub Actions workflow will automatically deploy the updated site._
