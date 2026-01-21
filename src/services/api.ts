@@ -143,6 +143,29 @@ export const fetchData = async (): Promise<{
           }
       };
 
+      // 优化：如果 Current Data 看起来很旧（比如超过2天），尝试从 History 中获取最新的
+      const currentTs = parseInt(current.timestamp);
+      const latestHistory = history[history.length - 1];
+      
+      // 如果 history 最新点比 current 更新，使用 history 的点
+      if (latestHistory) {
+          const historyTime = new Date(latestHistory.time).getTime() / 1000;
+          // 如果 history 比 current 至少新 24 小时
+          if (historyTime > currentTs + 86400) {
+             console.log("Current data is stale, using latest history point instead.");
+             current.value = Math.round(latestHistory.value);
+             // Rating 无法从 history 直接获取准确的（只有 value），可以重新计算或者均使用 Neutral，这里为了简单保留原 rating 或根据 value 简单推算
+             // 简单推算 Rating
+             if (current.value >= 75) current.value_classification = "Extreme Greed";
+             else if (current.value >= 55) current.value_classification = "Greed";
+             else if (current.value >= 45) current.value_classification = "Neutral";
+             else if (current.value >= 25) current.value_classification = "Fear";
+             else current.value_classification = "Extreme Fear";
+             
+             current.timestamp = historyTime.toString();
+          }
+      }
+
   } catch (err) {
       console.error("Error loading local history:", err);
       // Generate mock if local load fails

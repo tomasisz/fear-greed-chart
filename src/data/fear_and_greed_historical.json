@@ -1,12 +1,10 @@
 {
   "fear_and_greed": {
-    "score": 76.4285714285714,
-    "rating": "extreme greed",
-    "timestamp": "2023-12-29T23:59:54+00:00",
-    "previous_close": 77.2857142857143,
-    "previous_1_week": 78.4571428571429,
-    "previous_1_month": 63.28571428571429,
-    "previous_1_year": 37.142857142857146
+    "score": 47,
+    "rating": "neutral",
+    "timestamp": "2026-01-21T12:07:01.000Z",
+    "previous_close": 48.4285714285714,
+    "previous_1_year": 39.91428571428572
   },
   "fear_and_greed_historical": {
     "timestamp": 1703894394000,

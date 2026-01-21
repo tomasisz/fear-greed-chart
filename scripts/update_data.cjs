@@ -98,6 +98,15 @@ const updateData = async () => {
         // Let's check if the file has keys for sub-indicators.
         
         // For now, let's just write everything back.
+        // Update top-level fear_and_greed object for Current Score display
+        localData.fear_and_greed = {
+            score: newPoint.y,
+            rating: newPoint.rating,
+            timestamp: new Date(newPoint.x).toISOString(),
+            previous_close: newData.fear_and_greed.previous_close || 0,
+            previous_1_year: newData.fear_and_greed.previous_1_year || 0
+        };
+
         fs.writeFileSync(TARGET_FILE, JSON.stringify(localData, null, 2));
         console.log(`Successfully updated ${TARGET_FILE}`);
 
