@@ -3,7 +3,8 @@ const path = require('path');
 const https = require('https');
 
 // Configuration
-const URL = 'https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2026-01-20';
+const today = new Date().toISOString().split('T')[0];
+const URL = `https://production.dataviz.cnn.io/index/fearandgreed/graphdata/${today}`;
 const TARGET_FILE = path.join(__dirname, '../src/data/fear_and_greed_historical.json');
 
 // Helper to download data
