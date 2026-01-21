@@ -42,6 +42,9 @@ This project uses a static JSON file for historical data to ensure fast loading 
 
    _This fetches the latest data from CNN (proxied via Node.js script) and updates `src/data/fear_and_greed_historical.json`._
 
+   **Data Source**: `https://production.dataviz.cnn.io/index/fearandgreed/graphdata/{DATE}`
+   (e.g., `2026-01-21` for the market open date)
+
 2. Commit and push:
    ```bash
    git add .
